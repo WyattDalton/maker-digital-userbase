@@ -31,12 +31,38 @@ function UsrBse_register_user_segment_taxonomy() {
 				'update_item'	=> 'Update User Segment',
 				'add_new_item'	=> 'Add New User Segment',
 				'new_item_name'	=> 'New User Segment Name',
-            ),
-			'update_count_callback' => function() {
-                return;
-            }
+			)
 		)
 	);
+}
+
+
+// Setup default segment
+add_action( 'init', 'UsrBse_register_default_user_segment' );
+function UsrBse_register_default_user_segment() {
+
+	// Create term
+	wp_insert_term( 
+		'New Users', 
+		USER_SEGMENT_NAME, 
+		array(
+			'slug' => 'new-users',
+		)
+	);
+}
+
+// Assign term to new users
+add_action( 'wp_loaded', 'UsrBse_add_default_user_segment');
+add_action( 'register_new_user', 'UsrBse_add_default_user_segment' );
+function UsrBse_add_default_user_segment() {
+	$users = get_users();
+	$term = get_term_by( 'slug', 'new-users', 'user_segment' );
+	foreach( $users as $user ) {
+		$userMeta = get_user_meta( $user->ID );
+		if( ! $userMeta[USER_SEGMENT_META_KEY][0] ) {
+			update_user_meta( $user->ID, USER_SEGMENT_META_KEY, $term->name );
+		}
+	}
 }
 
 
@@ -52,14 +78,14 @@ function UsrBse_segments_user_table( $column ) {
 }
 add_filter( 'manage_users_columns', 'UsrBse_segments_user_table' );
 
-
+// Table row content
 function UsrBse_segments_user_table_row( $val, $column_name, $user_id ) {
 
     $user = get_user_meta( $user_id );
-    $segmentId = $user['_user_segment'][0];
+    $segment = $user[USER_SEGMENT_META_KEY];
 
-    if( $segmentId ) {
-        $segment = get_term( $segmentId, 'user_segment')->name;
+    if( $segment[0] ) {
+        $segment = $segment[0];
     } else {
         $segment = 'No Segment';
     }
@@ -74,7 +100,7 @@ function UsrBse_segments_user_table_row( $val, $column_name, $user_id ) {
 }
 add_filter( 'manage_users_custom_column', 'UsrBse_segments_user_table_row', 10, 3 );
 
-
+// Segment column sorting
 function UsrBse_segments_sortable_column( $columns ) {
     $columns['user_segment'] = 'Segment';
 
@@ -114,7 +140,12 @@ function UsrBse_set_user_segment_submenu_active( $submenu_file ) {
 	return $submenu_file;
 }
 
-
+// Unset count column
+add_filter( 'manage_edit-user_segment_columns', 'unset_user_count_column' );
+function unset_user_count_column( $columns ) {
+	unset ($columns['posts']);
+	return $columns;
+}
 
 
 /*
@@ -187,7 +218,7 @@ function UsrBse_custom_form_select( $name, $value, $options, $default_var ='') {
 		if( empty( $value ) && !empty( $default_var ) && $options_value == $default_var ) {
 			$selected = " selected='selected'";
 		}
-		echo "<option value='{$options_value}'{$selected}>{$options_label}</option>";
+		echo "<option value='{$options_label}'{$selected}>{$options_label}</option>";
 	}
 
     echo "</select>";
@@ -198,6 +229,9 @@ add_action( 'personal_options_update', 'UsrBse_admin_save_user_segments' );
 add_action( 'edit_user_profile_update', 'UsrBse_admin_save_user_segments' );
 
 function UsrBse_admin_save_user_segments( $user_id ) {
+	$terms = get_term( array(
+		'taxonomy' => USER_SEGMENT_NAME,
+	) );
 	$tax = get_taxonomy( USER_SEGMENT_NAME );
 	$user = get_userdata( $user_id );
 	
@@ -210,30 +244,7 @@ function UsrBse_admin_save_user_segments( $user_id ) {
 	}
 
 	
-    update_user_meta( $user_id, USER_SEGMENT_META_KEY, $new_segments_ids );
-    // UsrBse_update_users_segments_count( $previous_segments_ids, $new_segments_ids );
+	update_user_meta( $user_id, USER_SEGMENT_META_KEY, $new_segments_ids );
     
 
 }
-
-
-// User segment count callback function
-// function UsrBse_update_users_segments_count( $previous_terms_ids, $new_terms_ids ) {
-// 	global $wpdb;
-
-// 	$terms_ids = array_unique( array_merge( (array)$previous_terms_ids, (array)$new_terms_ids ) );
-	
-// 	if( count( $terms_ids ) < 1 ) { return; }
-	
-// 	foreach ( $terms_ids as $term_id ) {
-// 		$count = $wpdb->get_var(
-// 			$wpdb->prepare(
-// 				"SELECT COUNT(*) FROM $wpdb->usermeta WHERE meta_key = %s AND meta_value LIKE %s",
-// 				USER_SEGMENT_META_KEY,
-// 				'%"' . $term_id . '"%'
-// 			)
-// 		);
-// 		$wpdb->update( $wpdb->term_taxonomy, array( 'count' => $count ), array( 'term_taxonomy_id' => $term_id ) );
-// 	}
-// }
-

@@ -60,10 +60,7 @@ function ub_get_user_info() {
         );
 
         // Get first name (and title, if provided)
-        if( array_find( 
-                strtolower( 
-                    str_replace( '.', '', $fullName[0] ) 
-                ), $titlesarray ) 
+        if( array_find( strtolower( str_replace( '.', '', $fullName[0] ) ), $titlesarray ) 
             ) /* end if */ 
         {
             $fName = $fullName[0] . ' ' . $fullName[1];

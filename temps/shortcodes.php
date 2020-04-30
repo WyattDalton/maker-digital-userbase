@@ -56,6 +56,6 @@ function ub_greeting( $atts ) {
 
 
 
-// Display personalized content block
+// Display personalized content block for segments
 
 // Display suggested content
