@@ -16,18 +16,13 @@ function UsrBse_user_logged_data_update( $user_login, $user ) {
     $id = $user->ID;
     $meta = get_user_meta( $id );
 
-    // Get user data
-    $first_name = $meta[ 'first_name' ];
-    $segment = $meta[ '_user_segment' ];
-    $displayName = $user->display_name;
-    $id = $user->ID;
-
-    // Create output array
+    // Create output array with data
     $outputArray = array(
-        'first_name' => $first_name,
-        'displayName' => $displayName,
-        'segment'    => $segment,
-        'id'         => $id,
+        'first_name'  => $meta[ 'first_name' ],
+        'displayName' => $user->display_name,
+        'userName'    => $user->user_login,
+        'segment'     => $meta[ '_user_segment' ],
+        'id'          => $user->ID,
     );
 
     // If cookie already exists, add data to it. If not, create cookie with new data

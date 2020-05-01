@@ -26,13 +26,8 @@ function ub_greeting( $atts ) {
     $greeting = $greeting . esc_attr($a['before']);
 
     // Try to get first name from ub_get_user_info() 
-    if( $user[ 'fName' ] ) {
-        $greeting .= ' ' . $user[ 'fName' ];
-
-    // If not, try to get first name by user id
-    } if( $user[ 'id' ] && ! empty(get_userdata( $user[ 'id' ] )->first_name ) ) {
-        $user = get_userdata( $user[ 'id' ] );
-        $greeting .= ' ' . $user->first_name;
+    if( $user[ 'first_name' ] ) {
+        $greeting .= ' ' . $user[ 'first_name' ];
 
     // If not, try to get display name
     } elseif ( $user[ 'displayName' ] ) {
@@ -55,7 +50,76 @@ function ub_greeting( $atts ) {
 }
 
 
+/**
+ * Creates shortcode for returning wrapper for personalized content blocks based on a user's segment
+ *
+ * @param array  $atts shortcode attributes.
+ * @param array  $content content inside div.
+ * 
+ * @return shortcode output
+ */
+add_shortcode( 'ub_content', 'ub_content' );
+function ub_content( $atts, $content = null ) {
 
-// Display personalized content block for segments
+    $a = shortcode_atts(array(
+        'class' => null,
+     ), $atts );
+
+     $class = $a[ 'class' ] ? $a[ 'class'] : '';
+
+    $output = '<div class="ub-personalized-content-wrapper ' . $class . '">' . do_shortcode( $content ) . '</div>';
+    return $output;
+
+}
+
+/**
+ * Creates shortcode for displaying personalized content blocks based on a user's segment
+ * 
+ * @param array  $atts shortcode attributes.
+ * @param array  $content content inside div.
+ *
+ * @return shortcode output
+ */
+add_shortcode( 'ub_segment', 'ub_content_segment' );
+function ub_content_segment( $atts, $content ) {
+
+    $a = shortcode_atts(array(
+        'segment' => 'default',
+     ), $atts );
+
+     $user = ub_get_user_info();
+
+     $segment = str_replace( ' ', '-', strtolower( $user[ 'segment' ] ) );
+
+     $output = '';
+
+    if( $segment == $a[ 'segment' ]) {
+
+        $output = "<div class='ub-personalized-content-segment-" . $segment . "'>";
+        $output .= $content;
+        $output .= "</div>";
+
+    }
+
+    return $output;
+
+}
 
 // Display suggested content
+
+
+
+
+
+// Shortcode for testing cookies
+add_shortcode('UsrBse_cookie_test', 'UsrBse_cookie_test'); 
+function UsrBse_cookie_test() {
+
+    $user_data = $_COOKIE['UsrBse_user_data'];
+    $user_data = stripslashes( $user_data );
+    $user = json_decode( $user_data );
+
+    echo '<pre> USER DATA';
+    var_dump( $user );
+    echo '</pre>';
+}
