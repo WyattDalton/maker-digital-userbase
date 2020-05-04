@@ -36,13 +36,13 @@ function ub_get_user_info() {
         $meta = get_user_meta( $ubCurrent_user->ID );
 
         // Create array with user info
-        $ubUser[ 'first_name' ]  = is_array( $meta[ 'first_name' ] ) ? $meta[ 'first_name' ][ 0 ] :$meta[ 'first_name' ];
+        $ubUser[ 'first_name' ]  = is_array( $meta[ 'first_name' ] ) ? $meta[ 'first_name' ][ 0 ] : $meta[ 'first_name' ];
         $ubUser[ 'displayName' ] = $displayName = $ubCurrent_user->display_name;
         $ubUser[ 'userName' ]    = $ubCurrent_user->user_login;
         $ubUser[ 'id' ]          = $ubCurrent_user->ID;
-        $ubUser[ 'segment' ]     = $meta[ '_user_segment' ][ 0 ];
+        $ubUser[ 'segment' ]     = $meta[ '_user_segment' ];
     
-    } elseif ( $userCookie[ 'fullname' ] ) {
+    } elseif ( $userCookie ) {
 
         /*
          * If the visitor isn't logged in, check if they have a comment cookie and 
@@ -63,7 +63,7 @@ function ub_get_user_info() {
             // Set first_name_check to Full_name
             $first_name = $first_name_check;
 
-        } else {
+        } elseif( $ubUser[ 'fullname' ] ) {
 
             // Break full name into array
             $fullname = $ubUser[ 'fullname' ];

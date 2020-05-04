@@ -19,5 +19,10 @@ require( plugin_dir_path( __FILE__ ) . 'inc/cookies.php');
 // Require user segments
 require( plugin_dir_path( __FILE__ ) . 'inc/user-segments.php');
 
-// include( plugin_dir_path( __FILE__ ) . 'inc/logic.php' );
+// Include shortcodes
 include( plugin_dir_path( __FILE__ ) . 'temps/shortcodes.php' );
+
+// Include Gutenberg blocks
+include( plugin_dir_path( __FILE__ ) . 'inc/blocks.php' );
+
+include( plugin_dir_path( __FILE__ ) . 'inc/blocks/content-block/index.php' );

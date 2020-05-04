@@ -89,7 +89,7 @@ function ub_content_segment( $atts, $content ) {
 
      $user = ub_get_user_info();
 
-     $segment = str_replace( ' ', '-', strtolower( $user[ 'segment' ] ) );
+     $segment = str_replace( ' ', '-', strtolower( $user[ 'segment' ][ 0 ] ) );
 
      $output = '';
 
