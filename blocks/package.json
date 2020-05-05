@@ -1,0 +1,16 @@
+{
+  "name": "usrbse-blocks",
+  "version": "1.0.0",
+  "description": "Custom gutenberg blocks for userbase",
+  "main": "index.js",
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "9.0.0"
+  }
+}

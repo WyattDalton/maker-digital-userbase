@@ -112,10 +112,10 @@ function ub_content_segment( $atts, $content ) {
 
 
 // Shortcode for testing cookies
-add_shortcode('UsrBse_cookie_test', 'UsrBse_cookie_test'); 
-function UsrBse_cookie_test() {
+add_shortcode('usrbse_cookie_test', 'usrbse_cookie_test'); 
+function usrbse_cookie_test() {
 
-    $user_data = $_COOKIE['UsrBse_user_data'];
+    $user_data = $_COOKIE['usrbse_user_data'];
     $user_data = stripslashes( $user_data );
     $user = json_decode( $user_data );
 

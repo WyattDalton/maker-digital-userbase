@@ -23,7 +23,7 @@ function array_find($needle, array $haystack)
 function ub_get_user_info() {
 
     $ubUser = [];
-    $userCookie = (array) json_decode( stripslashes( $_COOKIE[ 'UsrBse_user_data' ] ) );
+    $userCookie = (array) json_decode( stripslashes( $_COOKIE[ 'usrbse_user_data' ] ) );
 
     if ( is_user_logged_in() ) {
 

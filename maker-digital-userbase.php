@@ -6,7 +6,7 @@ Version:             0.0.1
 Contributers:        Maker Digital
 Author:              Maker Digital
 License:             GPLv2 or later
-Text Domain:         UsrBse
+Text Domain:         usrbse
 */
 
 // If this file is called directly, abort.
@@ -23,6 +23,4 @@ require( plugin_dir_path( __FILE__ ) . 'inc/user-segments.php');
 include( plugin_dir_path( __FILE__ ) . 'temps/shortcodes.php' );
 
 // Include Gutenberg blocks
-include( plugin_dir_path( __FILE__ ) . 'inc/blocks.php' );
-
-include( plugin_dir_path( __FILE__ ) . 'inc/blocks/content-block/index.php' );
+include( plugin_dir_path( __FILE__ ) . 'blocks/blocks.php' );

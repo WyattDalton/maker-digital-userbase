@@ -9,8 +9,8 @@ $expiry = strtotime('+1 month');
  *
  * @return cookie json
  */
-add_action( 'wp_login', 'UsrBse_user_logged_data_update', 10, 2 );
-function UsrBse_user_logged_data_update( $user_login, $user ) {
+add_action( 'wp_login', 'usrbse_user_logged_data_update', 10, 2 );
+function usrbse_user_logged_data_update( $user_login, $user ) {
 
     // Get dataset
     $id = $user->ID;
@@ -26,9 +26,9 @@ function UsrBse_user_logged_data_update( $user_login, $user ) {
     );
 
     // If cookie already exists, add data to it. If not, create cookie with new data
-    if( isset( $_COOKIE[ 'UsrBse_user_data' ] ) ) {
+    if( isset( $_COOKIE[ 'usrbse_user_data' ] ) ) {
 
-        $old_data = $_COOKIE[ 'UsrBse_user_data' ];
+        $old_data = $_COOKIE[ 'usrbse_user_data' ];
         $old_data = stripslashes( $old_data );
         $old_data = (array) json_decode( $old_data, true );
 
@@ -43,7 +43,7 @@ function UsrBse_user_logged_data_update( $user_login, $user ) {
     }
 
     // Set cookie with data
-    setcookie( 'UsrBse_user_data', $output, $expiry, COOKIEPATH, COOKIE_DOMAIN );
+    setcookie( 'usrbse_user_data', $output, $expiry, COOKIEPATH, COOKIE_DOMAIN );
 }
 
 
@@ -52,8 +52,8 @@ function UsrBse_user_logged_data_update( $user_login, $user ) {
  *
  * @return cookie json
  */
-add_action( 'comment_post', 'UsrBse_user_comment_data_update', 10, 3 );
-function UsrBse_user_comment_data_update( $comment_IF, $comment_approved, $commentdata ) {
+add_action( 'comment_post', 'usrbse_user_comment_data_update', 10, 3 );
+function usrbse_user_comment_data_update( $comment_IF, $comment_approved, $commentdata ) {
 
     // Get dataset
     $data = $commentdata;
@@ -67,9 +67,9 @@ function UsrBse_user_comment_data_update( $comment_IF, $comment_approved, $comme
     );
 
     // If cookie already exists, add data to it. If not, create cookie with new data
-    if( isset( $_COOKIE[ 'UsrBse_user_data' ] ) ) {
+    if( isset( $_COOKIE[ 'usrbse_user_data' ] ) ) {
 
-        $old_data = $_COOKIE[ 'UsrBse_user_data' ];
+        $old_data = $_COOKIE[ 'usrbse_user_data' ];
         $old_data = stripslashes( $old_data );
         $old_data = (array) json_decode( $old_data, true );
 
@@ -84,5 +84,5 @@ function UsrBse_user_comment_data_update( $comment_IF, $comment_approved, $comme
     }
 
     // Set cookie with data
-    setcookie( 'UsrBse_user_data', $output, $expiry, COOKIEPATH, COOKIE_DOMAIN );
+    setcookie( 'usrbse_user_data', $output, $expiry, COOKIEPATH, COOKIE_DOMAIN );
 }
