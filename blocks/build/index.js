@@ -115,10 +115,12 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+// Critical block imports
 
 
 
 
+ // Register Personalized Content block
 
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('usrbse/personalized-content', {
   title: 'Personalized Content',
@@ -126,7 +128,12 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('usr
   icon: 'admin-users',
   attributes: {
     segment: {
-      type: 'string'
+      type: 'string',
+      default: 'all-users'
+    },
+    recommended: {
+      type: 'boolean',
+      default: false
     }
   },
   edit: Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__["withSelect"])(function (select) {
@@ -138,10 +145,17 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('usr
         className = _ref.className,
         attributes = _ref.attributes,
         setAttributes = _ref.setAttributes;
+
+    // If taxonomy data is not loaded, do not render
+    if (!1 >= tax) {
+      return 'loading...';
+    } // Creat options array from taxonomy data
+
+
     var options = [];
     var firstOption = {
-      label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('No segment'),
-      value: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('no-segment')
+      label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('All Users'),
+      value: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('all-users')
     };
     options.unshift(firstOption);
 
@@ -174,6 +188,14 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('usr
       onChange: function onChange(segment) {
         setAttributes({
           segment: segment
+        });
+      }
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["ToggleControl"], {
+      label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Display if recommended post?'),
+      checked: attributes.recommended,
+      onChange: function onChange(recommended) {
+        setAttributes({
+          recommended: recommended
         });
       }
     }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["InnerBlocks"], null));

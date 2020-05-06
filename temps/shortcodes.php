@@ -1,5 +1,5 @@
 <?php
-include( plugin_dir_path( __DIR__ ) . 'inc/logic.php' );
+include( plugin_dir_path( __DIR__ ) . 'inc/get_user_info.php' );
 
 /**
  * Creates shortcode for displaying personalized greeting with a user's name or default name
@@ -105,21 +105,8 @@ function ub_content_segment( $atts, $content ) {
 
 }
 
-// Display suggested content
-
-
-
-
-
-// Shortcode for testing cookies
-add_shortcode('usrbse_cookie_test', 'usrbse_cookie_test'); 
-function usrbse_cookie_test() {
-
-    $user_data = $_COOKIE['usrbse_user_data'];
-    $user_data = stripslashes( $user_data );
-    $user = json_decode( $user_data );
-
-    echo '<pre> USER DATA';
-    var_dump( $user );
-    echo '</pre>';
+// Display recommended content
+add_shortcode( 'ub_recommended', 'ub_recommended_content' );
+function ub_recommended_content() {
+    
 }

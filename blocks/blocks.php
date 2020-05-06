@@ -33,10 +33,30 @@ function personalized_content_block_render( $attributes, $content ) {
     $user = ub_get_user_info();
     $userSegment = str_replace( ' ', '-', strtolower( $user[ 'segment' ][ 0 ] ) );
     $blockSegment = str_replace( ' ', '-', strtolower( $attributes[ 'segment' ] ) );
+    $recommended = $attributes[ 'recommended' ];
 
-    if( $userSegment != $blockSegment ) {
+    // If block segment matches user or all users, display
+    $showSeg = false;
+    if( $userSegment == $blockSegment ) {
+        $showSeg = true; 
+    } elseif ( null == $blockSegment ) {
+        $showSeg = true;
+    }
+
+    // If block if post is recommended for user, and block is set tp display on reccomended posts, display
+    $showRec = $recommended;
+
+    // If block is recommended, only show if block segment matches user and post is recommended for user
+    if( $recommended ) {
+        if( $showRec && $showSeg ) {
+            return $content;
+        }
         return null;
     }
 
-    return $content;
+    // Otherwise, show block if block segment matches user
+    if( $showSeg ) {
+        return $content;
+    }
+    return null;
 }
