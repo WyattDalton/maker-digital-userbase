@@ -1,5 +1,4 @@
 <?php
-include( plugin_dir_path( __DIR__ ) . 'inc/get_user_info.php' );
 
 /**
  * Creates shortcode for displaying personalized greeting with a user's name or default name

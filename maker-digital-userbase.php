@@ -13,14 +13,23 @@ Text Domain:         usrbse
 if ( ! Defined( 'WPINC' ) ) {
     die;
 }
-// Require cookies file
-require( plugin_dir_path( __FILE__ ) . 'inc/cookies.php');
 
 // Require user segments
 require( plugin_dir_path( __FILE__ ) . 'inc/user-segments.php');
+
+include( plugin_dir_path( __FILE__ ) . 'inc/get_user_info.php' );
+
+// Require cookies file
+require( plugin_dir_path( __FILE__ ) . 'inc/cookies.php');
 
 // Include shortcodes
 include( plugin_dir_path( __FILE__ ) . 'temps/shortcodes.php' );
 
 // Include Gutenberg blocks
 include( plugin_dir_path( __FILE__ ) . 'blocks/blocks.php' );
+
+include( plugin_dir_path( __FILE__ ) . 'inc/user_recommended_content_meta.php' );
+
+// add_action( 'init', function(){
+//     delete_user_meta( 1, 'recommended_posts_data' );
+// });
