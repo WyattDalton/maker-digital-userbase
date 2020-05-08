@@ -82,7 +82,7 @@ function ub_content( $atts, $content = null ) {
 add_shortcode( 'ub_segment', 'ub_content_segment' );
 function ub_content_segment( $atts, $content ) {
 
-    $a = shortcode_atts(array(
+    $a = shortcode_atts( array(
         'segment' => 'default',
      ), $atts );
 
@@ -105,7 +105,14 @@ function ub_content_segment( $atts, $content ) {
 }
 
 // Display recommended content
-add_shortcode( 'ub_recommended', 'ub_recommended_content' );
-function ub_recommended_content() {
-    
+add_shortcode( 'ub_recommended_content', 'ub_recommended_content' );
+function ub_recommended_content( $atts ) {
+
+    $a = shortcode_atts( array(
+        'show'  => 3,
+        'style' => 'default',
+    ), $atts );
+
+    ub_recommended_posts( $a[ 'show' ], $a[ 'style' ] );
+
 }

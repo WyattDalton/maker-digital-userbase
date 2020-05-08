@@ -53,7 +53,7 @@ function usrbse_user_logged_data_update( $user_login, $user ) {
  * @return cookie json
  */
 add_action( 'comment_post', 'usrbse_user_comment_data_update', 10, 3 );
-function usrbse_user_comment_data_update( $comment_IF, $comment_approved, $commentdata ) {
+function usrbse_user_comment_data_update( $comment_ID, $comment_approved, $commentdata ) {
 
     // Get dataset
     $data = $commentdata;
