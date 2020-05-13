@@ -1,0 +1,18 @@
+// Container styles
+
+
+
+// Article styles
+
+// Default
+.ub-recommended-post {
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: 2fr 4fr;
+    margin-top: 20px;
+
+    .content-cluster h3 {
+        margin: 0 auto 3rem;
+    }
+
+}

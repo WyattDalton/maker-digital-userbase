@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "ACOA,AAAA,oBAAoB,AAAC,CACjB,OAAO,CAAE,IAAI,CACb,QAAQ,CAAE,IAAI,CACd,qBAAqB,CAAE,OAAO,CAC9B,UAAU,CAAE,IAAI,CAMnB,AAVD,AAMI,oBANgB,CAMhB,gBAAgB,CAAC,EAAE,AAAC,CAChB,MAAM,CAAE,WAAW,CACtB",
+    "sources": [
+        "styles/style.scss",
+        "styles/_recommended-posts.scss"
+    ],
+    "names": [],
+    "file": "style.min.css"
+}

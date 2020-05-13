@@ -75,7 +75,6 @@ function ub_meta_to_update( $valueToUpdate = '', $incBy = 1, $postId = null ) {
 		// Update user meta with new data
 		update_user_meta( $user[ 'id' ], $metaKey, $newData );
 		
-		
 	}
 
 }

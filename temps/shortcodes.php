@@ -113,6 +113,8 @@ function ub_recommended_content( $atts ) {
         'style' => 'default',
     ), $atts );
 
+    ob_start();
     ub_recommended_posts( $a[ 'show' ], $a[ 'style' ] );
+    return ob_get_clean();
 
 }
