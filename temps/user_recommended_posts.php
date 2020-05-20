@@ -24,9 +24,6 @@ function ub_recommended_posts(  $posts_to_show = 3, $style = 'default') {
         foreach( $data as $item ) {
             $ids[] = $item[ 'id' ];
         }
-        echo '<pre>';
-        var_dump( ub_get_user_info() );
-        echo '</pre>';
 
         $args = array(
             'post__in' => $ids,

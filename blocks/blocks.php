@@ -44,7 +44,7 @@ function personalized_content_block_render( $attributes, $content ) {
     }
 
     // If block if post is recommended for user, and block is set tp display on reccomended posts, display
-    $showRec = $recommended;
+    $showRec = ub_is_post_recommended();
 
     // If block is recommended, only show if block segment matches user and post is recommended for user
     if( $recommended ) {

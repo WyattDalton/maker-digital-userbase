@@ -320,3 +320,26 @@ function ub_recommended_posts_meta_reset() {
 
 	return $data;
 }
+
+/**
+ * 
+ * Gets true / false whether the current post is recommended
+ *
+ * @return bool 
+ */
+function ub_is_post_recommended() {
+	$data = ub_get_recommended_dataset();
+
+	if( ! is_array( $data ) ) {
+		$recommended = false;
+	}
+
+	foreach( $data as $item ) {
+		if( $item[ 'id' ] == get_the_ID() ) {
+			$recommended = __return_true();
+			break;
+		}
+	}
+
+	return $recommended;
+}
