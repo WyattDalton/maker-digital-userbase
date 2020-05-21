@@ -1,0 +1,25 @@
+// Settings page controls
+.ub_settings_page_controls {
+    display: flex;
+
+    button.button-secondary {
+        margin-right: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        span {
+            margin-right: 5px;
+        }
+    }
+}
+
+// Settings page tabs
+#ub_settings_wrapper,
+#ub_documentation_wrapper {
+    display: none;
+
+    &.ub_settings_panel.displayed {
+        display: block;
+    }
+}

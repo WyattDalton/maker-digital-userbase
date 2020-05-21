@@ -47,19 +47,6 @@ function ub_add_setting_fields() {
     include( plugin_dir_path( __DIR__ ) . 'settings/settings_fields/recommended_post_settings.php' );
     include( plugin_dir_path( __DIR__ ) . 'settings/settings_fields/engagement.php' );
 }
-?>
-
-<!-- <h3><?php esc_html_e( 'Default personal greeting', 'usrbse' ); ?></h3>
-<p><?php esc_html_e( 'Hey there, Wyatt!', 'usrbse' ); ?></p>
-
-<h3><?php esc_html_e( 'Default recommended posts display', 'usrbse' ); ?></h3>
-<p><?php esc_html_e( 'Hey there, Wyatt!', 'usrbse' ); ?></p>
-
-<h3><?php esc_html_e( 'Default post engagement values', 'usrbse' ); ?></h3>
-<p><?php esc_html_e( 'Post view: 1', 'usrbse' ); ?></p>
-<p><?php esc_html_e( 'Comment: 3', 'usrbse' ); ?></p>  -->
-
-<?php
 
 // Callback function for displaying description of engagement value settings
 function post_engagement_description_callback() {
