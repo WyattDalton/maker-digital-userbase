@@ -3,10 +3,6 @@
 // Create initial options 
 function ub_options() {
 
-    delete_option( 'ub_default_greeting' );
-    delete_option( 'ub_default_post_style' );
-    delete_option('ub_default_engagement');
-
     $userbase_settings = array(
         'greeting' => array(
             'greeting_before' => 'Hey there,',

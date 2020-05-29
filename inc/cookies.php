@@ -15,6 +15,7 @@ function usrbse_user_logged_data_update( $user_login, $user ) {
     // Get dataset
     $id = $user->ID;
     $meta = get_user_meta( $id );
+    $segment = wp_get_object_terms( $id, 'user_segment' );
 
     // Create output array with data
     $outputArray = array(
@@ -22,7 +23,9 @@ function usrbse_user_logged_data_update( $user_login, $user ) {
         'displayName' => $user->display_name,
         'userName'    => $user->user_login,
         'segment'     => $meta[ '_user_segment' ],
-        'id'          => $user->ID,
+        'id'          => $user,
+        'segment'     => $segment[0]->name,
+        'segmentId'   => $segment[0]->term_id,
     );
 
     // If cookie already exists, add data to it. If not, create cookie with new data

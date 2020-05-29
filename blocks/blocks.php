@@ -21,8 +21,8 @@ function register_userbse_blocks() {
  
  
     register_block_type( 'usrbse/personalized-content', array(
-        'editor_script' => 'usrbse-blocks-script',
-        'editor_style'  => 'usrbse-blocks-editor-styles',
+        'editor_script'   => 'usrbse-blocks-script',
+        'editor_style'    => 'usrbse-blocks-editor-styles',
         'render_callback' => 'personalized_content_block_render',
     ) );
  
@@ -31,7 +31,7 @@ add_action( 'init', 'register_userbse_blocks' );
 
 function personalized_content_block_render( $attributes, $content ) {
     $user = ub_get_user_info();
-    $userSegment = str_replace( ' ', '-', strtolower( $user[ 'segment' ][ 0 ] ) );
+    $userSegment = str_replace( ' ', '-', strtolower( $user[ 'segment' ] ) );
     $blockSegment = str_replace( ' ', '-', strtolower( $attributes[ 'segment' ] ) );
     $recommended = $attributes[ 'recommended' ];
 

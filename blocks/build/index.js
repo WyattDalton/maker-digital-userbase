@@ -170,12 +170,19 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('usr
           value: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])(item.slug)
         };
         options.push(option);
-      }
+      } // Don't allow multiple personalized content blocks to be nested
+
     } catch (err) {
       _iterator.e(err);
     } finally {
       _iterator.f();
     }
+
+    var ALLOWED_BLOCKS = wp.blocks.getBlockTypes().map(function (block) {
+      return block.name;
+    }).filter(function (blockName) {
+      return blockName !== 'usrbse/personalized-content';
+    }); // Return the block
 
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: className
@@ -198,7 +205,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('usr
           recommended: recommended
         });
       }
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["InnerBlocks"], null));
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["InnerBlocks"], {
+      allowedBlocks: ALLOWED_BLOCKS
+    }));
   }),
   save: function save(_ref2) {
     var className = _ref2.className;

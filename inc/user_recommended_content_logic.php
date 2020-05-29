@@ -244,7 +244,7 @@ function ub_get_recommended_dataset( int $limit = 10 ) {
 
 		// Add post taxonomy engagement value: tags
 		$tags = get_the_tags();
-		foreach( $tags as $tag ) {
+		foreach( (array) $tags as $tag ) {
 			$tagId = $tag->term_taxonomy_id;
 			if( array_key_exists( $tagId, $tagsCombined) ) {
 				$val = $tagsCombined[ $tagId ];
@@ -332,6 +332,7 @@ function ub_is_post_recommended() {
 
 	if( ! is_array( $data ) ) {
 		$recommended = false;
+		return $recommended;
 	}
 
 	foreach( $data as $item ) {

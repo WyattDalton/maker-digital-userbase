@@ -31,12 +31,12 @@ add_action( 'wp_enqueue_scripts', 'usrbse_load_styles' );
 // Include plugin settings and options
 include( plugin_dir_path( __FILE__ ) . 'settings/ub_options.php' );
 include( plugin_dir_path( __FILE__ ) . 'settings/ub_settings.php' );
-
+include( plugin_dir_path( __FILE__ ) . 'inc/custom_registration.php' );
 
 // Require user segments
 require( plugin_dir_path( __FILE__ ) . 'inc/user-segments.php');
 
-// Include user segments
+// Include utility functions
 include( plugin_dir_path( __FILE__ ) . 'inc/get_user_info.php' );
 
 // Include recommended/popular content Logic
@@ -92,7 +92,7 @@ add_shortcode( 'show_meta', 'show_meta' );
 function show_meta() {
 
   echo '<pre>';
-  var_dump(  );
+  // var_dump( ub_get_user_info() );
   echo '</pre>';
 
 }

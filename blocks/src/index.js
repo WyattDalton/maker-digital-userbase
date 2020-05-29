@@ -12,6 +12,8 @@ import {
  } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
 
+
+
 // Register Personalized Content block
 registerBlockType( 'usrbse/personalized-content', {
     title: 'Personalized Content',
@@ -47,7 +49,11 @@ registerBlockType( 'usrbse/personalized-content', {
                 let option = { label: __( item.name ), value: __( item.slug ) };
                 options.push( option );
             }
-            
+
+            // Don't allow multiple personalized content blocks to be nested
+            const ALLOWED_BLOCKS = wp.blocks.getBlockTypes().map(block => block.name).filter(blockName => blockName !== 'usrbse/personalized-content');
+
+            // Return the block
             return (
                 <div className={ className }>
                     <InspectorControls>
@@ -66,7 +72,7 @@ registerBlockType( 'usrbse/personalized-content', {
                         </PanelBody>
                     </InspectorControls>
                 
-                    <InnerBlocks />
+                    <InnerBlocks allowedBlocks={ ALLOWED_BLOCKS } />
                 </div>
             );
         } ),

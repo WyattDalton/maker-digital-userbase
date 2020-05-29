@@ -10,6 +10,14 @@ add_settings_field(
     'ub_personalized_content'
 );
 
+add_settings_field(
+    'recommended_posts_number_to_show',
+    __( 'Default number to show' ),
+    'ub_default_recommended_show_markup',
+    'userbase',
+    'ub_personalized_content'
+);
+
 function ub_default_recommended_markup() {
     
     $option = get_option( 'ub_settings' );
@@ -70,4 +78,16 @@ function ub_default_recommended_markup() {
     echo $output;
     
     
+}
+
+function ub_default_recommended_show_markup() {
+    $option = get_option( 'ub_settings' )['recommended_posts_number_to_show'];
+
+
+    $show = 3;
+    if( isset( $option ) ) {
+        $show = $option;
+    }
+
+    echo "<input type='number' id='recommended_posts_number_to_show' name='ub_settings[recommended_posts_number_to_show]' value='$show'/>";
 }

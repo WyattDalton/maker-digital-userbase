@@ -10,10 +10,14 @@
 add_shortcode( 'ub_greeting', 'ub_greeting' );
 function ub_greeting( $atts ) {
 
+    $defaults = get_option( 'ub_settings' );
+
+    $before = $defaults[ 'greeting' ][ 'greeting_before' ];
+    $punc = $defaults[ 'greeting' ][ 'greeting_punc' ];
     // Setting shortcode attributes and defaults
     $a = shortcode_atts(array(
-        'before' => 'Hi,',
-        'punc'       => '.'
+        'before' => $before,
+        'punc'   => $punc
      ), $atts );
 
     $user = ub_get_user_info();
@@ -48,29 +52,6 @@ function ub_greeting( $atts ) {
 
 }
 
-
-/**
- * Creates shortcode for returning wrapper for personalized content blocks based on a user's segment
- *
- * @param array  $atts shortcode attributes.
- * @param array  $content content inside div.
- * 
- * @return shortcode output
- */
-add_shortcode( 'ub_content', 'ub_content' );
-function ub_content( $atts, $content = null ) {
-
-    $a = shortcode_atts(array(
-        'class' => null,
-     ), $atts );
-
-     $class = $a[ 'class' ] ? $a[ 'class'] : '';
-
-    $output = '<div class="ub-personalized-content-wrapper ' . $class . '">' . do_shortcode( $content ) . '</div>';
-    return $output;
-
-}
-
 /**
  * Creates shortcode for displaying personalized content blocks based on a user's segment
  * 
@@ -83,12 +64,12 @@ add_shortcode( 'ub_segment', 'ub_content_segment' );
 function ub_content_segment( $atts, $content ) {
 
     $a = shortcode_atts( array(
-        'segment' => 'default',
+        'segment' => 'new-users',
      ), $atts );
 
      $user = ub_get_user_info();
 
-     $segment = str_replace( ' ', '-', strtolower( $user[ 'segment' ][ 0 ] ) );
+     $segment = str_replace( ' ', '-', strtolower( $user[ 'segment' ] ) );
 
      $output = '';
 
@@ -108,9 +89,13 @@ function ub_content_segment( $atts, $content ) {
 add_shortcode( 'ub_recommended_content', 'ub_recommended_content' );
 function ub_recommended_content( $atts ) {
 
+    $defaults = get_option( 'ub_settings' );
+    $style = $defaults[ 'default_post_style' ];
+    $number = $defaults[ 'recommended_posts_number_to_show' ];
+
     $a = shortcode_atts( array(
-        'show'  => 3,
-        'style' => 'default',
+        'show'  => $number,
+        'style' => $style,
     ), $atts );
 
     ob_start();

@@ -1,6 +1,6 @@
 <?php
 
-function ub_recommended_posts(  $posts_to_show = 3, $style = 'default') {
+function ub_recommended_posts(  $posts_to_show, $style ) {
 
     
     $recommended = ub_get_recommended_dataset();

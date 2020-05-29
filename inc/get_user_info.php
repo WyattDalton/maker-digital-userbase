@@ -34,13 +34,15 @@ function ub_get_user_info() {
         // Get user object
         $ubCurrent_user = wp_get_current_user();
         $meta = get_user_meta( $ubCurrent_user->ID );
+        $segment = wp_get_object_terms( $ubCurrent_user->ID, 'user_segment' );
 
         // Create array with user info
         $ubUser[ 'first_name' ]  = is_array( $meta[ 'first_name' ] ) ? $meta[ 'first_name' ][ 0 ] : $meta[ 'first_name' ];
         $ubUser[ 'displayName' ] = $displayName = $ubCurrent_user->display_name;
         $ubUser[ 'userName' ]    = $ubCurrent_user->user_login;
         $ubUser[ 'id' ]          = $ubCurrent_user->ID;
-        $ubUser[ 'segment' ]     = $meta[ '_user_segment' ];
+        $ubUser[ 'segment' ]     = $segment[0]->name;
+        $ubUser[ 'segmentId' ]     = $segment[0]->term_id;
     
     } elseif ( $userCookie ) {
 
