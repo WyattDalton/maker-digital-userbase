@@ -2,7 +2,7 @@
 
 function register_userbse_blocks() {
  
-    // automatically load dependencies and version
+    // Automatically load dependencies and version
     $asset_file = include( plugin_dir_path( __FILE__ ) . 'build/index.asset.php');
  
     wp_register_script(
@@ -43,7 +43,7 @@ function personalized_content_block_render( $attributes, $content ) {
         $showSeg = true;
     }
 
-    // If block if post is recommended for user, and block is set tp display on reccomended posts, display
+    // If block if post is recommended for user, and block is set up display on reccomended posts, display
     $showRec = ub_is_post_recommended();
 
     // If block is recommended, only show if block segment matches user and post is recommended for user

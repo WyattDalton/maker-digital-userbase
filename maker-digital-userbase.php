@@ -1,7 +1,7 @@
 <?php 
 /*
 Plugin Name:         Userbase
-Description:         Light weight website content personalization.
+Description:         Lightweight website content personalization.
 Version:             0.0.1
 Contributers:        Maker Digital
 Author:              Maker Digital
@@ -53,11 +53,6 @@ include( plugin_dir_path( __FILE__ ) . 'temps/shortcodes.php' );
 // Include Gutenberg blocks
 include( plugin_dir_path( __FILE__ ) . 'blocks/blocks.php' );
 
-// add_action( 'init', function(){
-//     delete_user_meta( 21, 'ub_recommended_posts_data' );
-//     delete_user_meta( 21,  'ub_recommended_posts' );
-// });
-
 // Add settings link to plugin listing on plugins page
 $plugin_settings_name = 'plugin_action_links_' . plugin_basename( __FILE__ );
 add_filter ( $plugin_settings_name, 'ub_plugin_settings_link' ); 
@@ -65,44 +60,4 @@ function ub_plugin_settings_link( $links ) {
   $settins_link = '<a href="options-general.php?page=userbase">' . __( 'Settings' ) . '</a>';
   array_push( $links, $settins_link );
   return $links;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-add_shortcode( 'show_meta', 'show_meta' );
-function show_meta() {
-
-  echo '<pre>';
-  // var_dump( ub_get_user_info() );
-  echo '</pre>';
-
-}
-
-// add_filter( 'the_content', 'ub_rec_check' );
-function ub_rec_check( $content )
-{
-	$output = 'false';
-	if( ub_is_post_recommended() ) {
-		$output = 'true';
-	}
-	return $output . $content;
 }

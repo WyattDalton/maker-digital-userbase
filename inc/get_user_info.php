@@ -9,10 +9,10 @@
  * @author Bran van der Meer <branmovic@gmail.com>
  * @since 29-01-2010
  */
-function array_find($needle, array $haystack)
+function array_find( $needle, array $haystack )
 {
-    foreach ($haystack as $key => $value) {
-        if (false !== stripos($value, $needle)) {
+    foreach ( $haystack as $key => $value ) {
+        if ( false !== stripos($value, $needle ) ) {
             return $key;
         }
     }
