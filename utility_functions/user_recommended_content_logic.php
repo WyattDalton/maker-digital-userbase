@@ -67,7 +67,7 @@ function ub_meta_to_update( $valueToUpdate = '', $incBy = 1, $postId = null ) {
 			$newData = $newData + $meta;
 		}
 
-		// Sort data from most total engagement to lowest
+		// Sort data from highest total engagement to lowest
 		uasort( $newData, function ( $a, $b ) {
 			return $b[ 'total' ] <=> $a[ 'total' ];
 		});
@@ -83,8 +83,10 @@ function ub_meta_to_update( $valueToUpdate = '', $incBy = 1, $postId = null ) {
 add_action( 'template_redirect', 'ub_update_user_post_meta_view' );
 function ub_update_user_post_meta_view() {
 
+	$default = (int) get_option( 'ub_settings' )[ 'default_engagement' ][ 'post_view' ];
+
 	if( is_single() && 'post' == get_post_type() ) {
-		ub_meta_to_update( 'views', 1 );
+		ub_meta_to_update( 'views', $default );
 	}
 
 	
@@ -98,7 +100,9 @@ function ub_update_user_post_meta_comment( $comment_ID, $comment_approved, $comm
 	$data = $commentdata;
 	$postId = (int) $data[ 'comment_post_ID' ];
 
-	ub_meta_to_update( 'comments', 3, $postId );
+	$default = (int) get_option( 'ub_settings' )[ 'default_engagement' ][ 'post_comment' ];
+
+	ub_meta_to_update( 'comments', $default, $postId );
 	
 }
 
@@ -108,7 +112,7 @@ function ub_update_user_post_meta_comment( $comment_ID, $comment_approved, $comm
  * 
  * Retrieves a list of post ids, filtered in decending order, by total engagement with tags 
  * and categories
- *	1 - get initial reccomended dataset (array: post data from user interactions meta)
+ *	1 - get initial recommended dataset (array: post data from user interactions meta)
  *		- post id
  *		- post engagement
  *  2 - create arrays for all tags, categories, and ids of posts in initial dataset
@@ -167,7 +171,7 @@ function ub_get_recommended_dataset( int $limit = 10 ) {
 		}
 		
 
-		// get post category data
+		// Get post category data
 		$cats = get_the_category( $post[ 'id' ] );
 		if( $cats ){
 			$catsArray = [];
@@ -262,7 +266,7 @@ function ub_get_recommended_dataset( int $limit = 10 ) {
 			}
 		}
 
-		// Add post to reccomended posts array with id and engagement value
+		// Add post to recommended posts array with id and engagement value
 		$recommended_posts[] = array( 'id' => get_the_ID(), 'name' => get_the_title(), 'total' => $currentPostEngagement );
 
 	endwhile;
@@ -303,7 +307,7 @@ function ub_add_recommended_posts_to_meta() {
 }
 
 
-// reduce post engagement data to 3 items on user loggout or auth cookie exiration 
+// reduce post engagement data to 3 items on user loggout or auth cookie expiration 
 add_action( 'wp_logout', 'ub_recommended_posts_meta_reset' );
 add_action( 'clear_auth_cookie', 'ub_recommended_posts_meta_reset' );
 function ub_recommended_posts_meta_reset() {

@@ -63,10 +63,10 @@ function ub_post_meta_to_update( $valueToUpdate = '', $incBy = 1, $postId = null
 add_action( 'wp_head', 'ub_update_post_meta_view' );
 function ub_update_post_meta_view() {
 
-	
+	$default = (int) get_option( 'ub_settings' )[ 'default_engagement' ][ 'post_view' ];
 
 	if( is_single() && 'post' == get_post_type() ) {
-		ub_post_meta_to_update( 'views', 1 );
+		ub_post_meta_to_update( 'views', $default );
 	}
 
 	
@@ -80,7 +80,9 @@ function ub_update_post_meta_comment( $comment_ID, $comment_approved, $commentda
 	$data = $commentdata;
 	$postId = (int) $data[ 'comment_post_ID' ];
 
-	ub_post_meta_to_update( 'comments', 3, $postId );
+	$default = (int) get_option( 'ub_settings' )[ 'default_engagement' ][ 'post_comment' ];
+
+	ub_post_meta_to_update( 'comments', $default, $postId );
 	
 }
 
