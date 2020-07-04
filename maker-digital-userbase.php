@@ -54,7 +54,13 @@ function ub_plugin_settings_link( $links ) {
 add_shortcode( 'show_meta', 'show_meta' );
 function show_meta() {
   $user = ub_get_user_info();
-	$meta = get_user_meta( $user[ 'id' ], 'ub_recommended_posts_data', true );
+  // $meta = get_user_meta( $user[ 'id' ], 'ub_recommended_posts_data', true );
+  
+  if( 'post' == get_post_type() ) {
+		$postId = get_the_id();
+	}
+	$metaKey = 'ub_post_engagement';
+  $meta = get_post_meta( $postId, $metaKey, true );
 
   echo '<pre>';
   var_dump( $meta );

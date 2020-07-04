@@ -24,6 +24,7 @@ function ub_post_meta_to_update( $valueToUpdate = '', $incBy = 1, $postId = null
 	$oldData = $meta;
 
 	// If $valueToUpdate already exists for this post, add it to $incBy
+	/* Note: Can this by refactored to use the simplified code used to track user segment engagement? */
 	if( 'views' == $valueToUpdate ) {
 		if( $oldData ) {
 			$views    = $oldData[ 'views' ] + $incBy;
@@ -41,12 +42,28 @@ function ub_post_meta_to_update( $valueToUpdate = '', $incBy = 1, $postId = null
 	} else {
 		return null;
 	}
+
+	// Get current user segment if it exists, and run the code
+	$segment = ub_get_user_info()[ 'segment' ];
+
+	// Initiate $segmentData variable
+	if( is_array( $meta[ 'segments' ] ) ) {
+		$segmentData = $meta[ 'segments' ];
+	} else {
+		$segmentData = [];
+	}
+
+	// Add $incBy to $valueToUpdate for the user segment
+	if( null != $segment ) {
+		$segmentData[ $segment ][ $valueToUpdate ] += $incBy;
+	}
 	
 	// Create array with new values
 	$newData = array(
 		'views'    => $views,
 		'comments' => $comments,
 		'total'    => $views + $comments,
+		'segments' => $segmentData,
 	);
 
 	// If old data exists, combine with new data
